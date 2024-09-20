@@ -12,7 +12,13 @@ struct LocationsView: View {
     @EnvironmentObject private var viewModel: LocationsViewModel
     var body: some View {
         ZStack{
-            Map(coordinateRegion: $viewModel.mapRegion )
+            Map(coordinateRegion: $viewModel.mapRegion,
+                annotationItems: viewModel.locations,
+                annotationContent: { location in
+                MapAnnotation(coordinate: location.coordinates) {
+                     
+                }
+            })
                 .ignoresSafeArea()
             
             VStack (spacing: 0){
@@ -30,12 +36,9 @@ struct LocationsView: View {
                                     insertion: .move(edge: .trailing),
                                     removal: .move(edge: .leading)))
                         }
-                        
                     }
                 }
             }
-            
-            
         }
     }
 }
